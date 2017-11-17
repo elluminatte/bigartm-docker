@@ -17,4 +17,12 @@ RUN cd 3rdparty/protobuf-3.0.0/python && python3 setup.py build && python3 setup
 RUN cd python && python2 setup.py install
 RUN cd python && python3 setup.py install
 
+WORKDIR /usr/lib/python3/dist-packages
+
+RUN apt-get remove -y python-tornado
+RUN rm -rf tornado-3.1.1.egg-info && rm -rf tornado
+
+RUN pip2 install tornado --upgrade --ignore-installed
+RUN pip3 install tornado --upgrade --ignore-installed
+
 ENV ARTM_SHARED_LIBRARY=/tmp/bigartm/build/lib/libartm.so
